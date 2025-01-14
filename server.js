@@ -1,20 +1,16 @@
-import express from 'express';
-// import { json } from 'body-parser';
-import cors from 'cors';
-import { config } from 'dotenv';
-import itemRoutes from './Routes/mst_item_routes.js';
-// const jobRoutes = require('./');
-
-// Initialize environment variables
-config();
-
+import express, { json } from "express";
 const app = express();
+import itemRoutes from "./Routes/itemRoutes.js";
+import cors from "cors"; // Changed import to require
+import { config } from "dotenv"; // Changed import to require
 
-// Middleware
+config();
 app.use(cors());
-app.use(express.json());
-app.use('/api/item', itemRoutes);
 
-// Start server
+app.use(json());
+app.use("/api", itemRoutes);
+
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
